@@ -1,0 +1,123 @@
+.container {
+    padding: 20px;
+    text-align: center;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-image: url("./images/robot2.png");
+    background-position: center;
+    background-size: cover;
+}
+.container h2 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 40px;
+}
+.board {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.column {
+    padding: 35px 30px;
+    width: 300px;
+    border-radius: 10px;
+    color: #fff;
+    backdrop-filter: blur(6px);
+    background: #ffffff1a;
+    border: 1px solid #ffffff47;
+}
+.boardActions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.clearBtn, .addColumnBtn {
+    margin-top: 20px;
+    background: linear-gradient(45deg, #250152, #85fdff);
+    color: #ffffff;
+    backdrop-filter: blur(16px);
+    padding: 10px;
+    border-radius: 8px;
+    border: unset;
+    transition: 0.3s all;
+}
+.clearBtn:hover, .addColumnBtn:hover {
+    transform: scale(1.1);
+    color: #000000;
+    background: #fff;
+}
+.addTaskBox input {
+    height: 10px;
+    border-radius: 8px 0px 0px 8px;
+    padding: 9.4px;
+    backdrop-filter: blur(1px);
+    background: #0000002e;
+    border: 1px solid #ffffff38;
+}
+.modalContent input {
+    height: 18px;
+    border-radius: 8px;
+    padding: 9.4px;
+    color: #fff;
+    backdrop-filter: blur(1px);
+    background: #0000002e;
+    border: 1px solid #ffffff38;
+    width: 90%;
+}
+.modalContent{
+    width: 400px;
+}
+.small-btn {
+    padding: 6.8px 16px;
+    border: 1px solid #ffffff2b;
+    border-radius: 0px 8px 8px 0px;
+    background: #ffffff1a;
+    color: #fff;
+    margin-bottom: 20px;
+    backdrop-filter: blur(1px);
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.modalContent {
+    padding: 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    background: #ffffff2e;
+    color: #fff;
+    border: unset;
+    border-radius: 12px;
+}
+.modalContent button{
+    background: #ffffff2e;
+    color: #fff;
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    margin: 8px;
+    border: unset;
+    padding: 10px 30px;
+    transition: 0.3s all;
+    border: 1px solid #ffffff36;
+}
+.modalContent button:hover{
+    transform: scale(1.1);
+}
+.addTaskBox input::placeholder {
+    color: #d1d1d1;
+}

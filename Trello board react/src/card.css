@@ -1,0 +1,42 @@
+.card {
+    background: #ffffff1f;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    backdrop-filter: blur(1px);
+}
+.card h4 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 20px;
+    margin: 15px 0px;
+}
+.btnGroup {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.up, .down, .left, .right {
+    padding: 3px 10px;
+    border-radius: 8px;
+    border: unset;
+    color: #ffffff;
+    background: #ffffff00;
+    font-weight: 300;
+    border-bottom: 1px solid #ffffff7b;
+    transition: 0.3s all;
+}
+.up:hover, .down:hover, .left:hover, .right:hover {
+    background: #ffffff31;
+    border: 1px solid #ffffff7b;
+}
+.edit, .dlt {
+    background: linear-gradient(45deg, #250152, #85fdff);
+    border: unset;
+    border-radius: 8px;
+    padding: 10px 30px;
+    color: #fff;
+}
