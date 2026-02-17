@@ -9,12 +9,12 @@ body {
     box-sizing: border-box;
     background-repeat: no-repeat;
     background-image: url("./images/robot2.png");
-    background-position: center;
+    background-position: top;
     background-size: cover;
 }
 .container h2 {
     color: #fff;
-    font-weight: 300;
+    font-weight: 500;
     font-size: 40px;
 }
 .board {
@@ -27,12 +27,15 @@ body {
 }
 .column {
     padding: 35px 30px;
-    width: 300px;
+    width: 22%;
     border-radius: 10px;
     color: #fff;
     backdrop-filter: blur(6px);
     background: #ffffff1a;
     border: 1px solid #ffffff47;
+}
+.column h3 {
+    font-weight: 400;
 }
 .boardActions {
     display: flex;
@@ -61,6 +64,7 @@ body {
     backdrop-filter: blur(1px);
     background: #0000002e;
     border: 1px solid #ffffff38;
+    color: #fff;
 }
 .modalContent input {
     height: 18px;
