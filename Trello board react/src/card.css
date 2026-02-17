@@ -4,6 +4,9 @@
     margin-bottom: 10px;
     border-radius: 8px;
     backdrop-filter: blur(1px);
+    word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .card h4 {
     color: #fff;

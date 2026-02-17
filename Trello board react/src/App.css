@@ -24,6 +24,7 @@ body {
     margin-top: 20px;
     flex-direction: row;
     flex-wrap: wrap;
+    overflow: hidden;
 }
 .column {
     padding: 35px 30px;
@@ -124,4 +125,23 @@ body {
 }
 .addTaskBox input::placeholder {
     color: #d1d1d1;
+}
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deleteColumnBtn {
+    font-size: 13px;
+    cursor: pointer;
+    color: #ffffff;
+    font-weight: 100;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background: #64646445;
+    padding: 1px 5px;
+    transition: 0.3s all;
+}
+.deleteColumnBtn:hover {
+  transform: scale(1.1);
 }

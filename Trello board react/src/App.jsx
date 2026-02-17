@@ -90,9 +90,16 @@ export default function App() {
 
   // Clear Board
   const clearBoard = () => {
-    setBoard(initialBoard);
-    setShowModal(false);
-  };
+  const clearedBoard = board.map((column) => ({
+    ...column,
+    cards: [],
+    newTask: "",
+  }));
+
+  setBoard(clearedBoard);
+  setShowModal(false);
+};
+
 
   // Add Column (Modal based)
   const addColumn = () => {
@@ -112,6 +119,13 @@ export default function App() {
     setShowColumnModal(false);
   };
 
+  // dlt new column
+  const deleteColumn = (columnId) => {
+  const updatedBoard = board.filter((col) => col.id !== columnId);
+  setBoard(updatedBoard);
+  };
+
+
   return (
     <div className="container">
       <h2>Kanban Board</h2>
@@ -119,7 +133,16 @@ export default function App() {
       <div className="board">
         {board.map((column, colIndex) => (
           <div key={column.id} className="column">
-            <h3>{column.name}</h3>
+
+            <div className="columnHeader">
+              <h3>{column.name}</h3>
+              <button
+                className="deleteColumnBtn"
+                onClick={() => deleteColumn(column.id)}
+              >
+                ✖
+              </button>
+            </div>
 
             <div className="addTaskBox">
               <input
