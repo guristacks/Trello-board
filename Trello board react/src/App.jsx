@@ -4,9 +4,9 @@ import Card from "./card.jsx";
 import "./App.css";
 
 const initialBoard = [
-  { id: uuid(), name: "Todo", cards: [], newTask: "" },
-  { id: uuid(), name: "Doing", cards: [], newTask: "" },
-  { id: uuid(), name: "Done", cards: [], newTask: "" },
+  { id: uuid(), name: "Todo", cards: [], newTask: "", error: "", isDefault: true },
+  { id: uuid(), name: "Doing", cards: [], newTask: "", error: "", isDefault: true },
+  { id: uuid(), name: "Done", cards: [], newTask: "", error: "", isDefault: true },
 ];
 
 export default function App() {
@@ -19,24 +19,37 @@ export default function App() {
   const [showColumnModal, setShowColumnModal] = useState(false);
   const [newColumnTitle, setNewColumnTitle] = useState("");
 
+  
   // Sync with localStorage
   useEffect(() => {
     localStorage.setItem("kanbanBoard", JSON.stringify(board));
   }, [board]);
 
   // Add Card
+
   const addCard = (columnIndex, title) => {
-    if (!title.trim()) return;
+  const newBoard = [...board];
 
-    const newBoard = [...board];
-    newBoard[columnIndex].cards.push({
-      id: uuid(),
-      title,
-    });
-
-    newBoard[columnIndex].newTask = "";
+  if (!title.trim()) {
+    newBoard[columnIndex].error =
+      "Please write something before adding the card";
     setBoard(newBoard);
-  };
+    return;
+  }
+
+  newBoard[columnIndex].error = "";
+
+  newBoard[columnIndex].cards.push({
+    id: uuid(),
+    title,
+    done: false,
+  });
+
+  newBoard[columnIndex].newTask = "";
+  setBoard(newBoard);
+};
+
+
 
   // Delete Card
   const deleteCard = (colIndex, cardId) => {
@@ -48,16 +61,32 @@ export default function App() {
   };
 
   // Edit Card
+  const [editData, setEditData] = useState(null);
+
   const editCard = (colIndex, cardId) => {
-    const newTitle = prompt("Edit title");
-    if (!newTitle) return;
+  const card = board[colIndex].cards.find((c) => c.id === cardId);
 
-    const newBoard = [...board];
-    const card = newBoard[colIndex].cards.find((c) => c.id === cardId);
-    card.title = newTitle;
+  setEditData({
+    colIndex,
+    cardId,
+    title: card.title,
+  });
+};
 
-    setBoard(newBoard);
-  };
+  //Save edited card
+  const saveEditedCard = () => {
+  const newBoard = [...board];
+
+  const card = newBoard[editData.colIndex].cards.find(
+    (c) => c.id === editData.cardId
+  );
+
+  card.title = editData.title;
+
+  setBoard(newBoard);
+  setEditData(null);
+};
+
 
   // Move Card Left / Right
   const moveCardHorizontal = (colIndex, cardId, direction) => {
@@ -103,27 +132,36 @@ export default function App() {
 
   // Add Column (Modal based)
   const addColumn = () => {
-    if (!newColumnTitle.trim()) return;
+  if (!newColumnTitle.trim()) return;
 
-    setBoard((prevBoard) => [
-      ...prevBoard,
-      {
-        id: uuid(),
-        name: newColumnTitle,
-        cards: [],
-        newTask: "",
-      },
-    ]);
+  setBoard((prevBoard) => [
+    ...prevBoard,
+    {
+      id: uuid(),
+      name: newColumnTitle,
+      cards: [],
+      newTask: "",
+      error: "",
+      isDefault: false, 
+    },
+  ]);
 
-    setNewColumnTitle("");
-    setShowColumnModal(false);
-  };
+  setNewColumnTitle("");
+  setShowColumnModal(false);
+};
+
 
   // dlt new column
+  
   const deleteColumn = (columnId) => {
+  const columnToDelete = board.find(col => col.id === columnId);
+
+  if (columnToDelete?.isDefault) return;
+
   const updatedBoard = board.filter((col) => col.id !== columnId);
   setBoard(updatedBoard);
-  };
+};
+
 
 
   return (
@@ -136,12 +174,11 @@ export default function App() {
 
             <div className="columnHeader">
               <h3>{column.name}</h3>
+              {!column.isDefault && (
               <button
-                className="deleteColumnBtn"
-                onClick={() => deleteColumn(column.id)}
-              >
-                ✖
-              </button>
+                className="deleteColumnBtn" onClick={() => deleteColumn(column.id)}>✖</button>
+            )}
+
             </div>
 
             <div className="addTaskBox">
@@ -167,6 +204,9 @@ export default function App() {
               >
                 + Add
               </button>
+
+              {column.error && (<p className="errorMsg">{column.error}</p>)}
+
             </div>
 
             {column.cards.map((card) => (
@@ -217,6 +257,28 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {editData && (
+      <div className="modal">
+        <div className="modalContent">
+          <h3>Edit Task</h3>
+
+          <input
+            type="text"
+            value={editData.title}
+            onChange={(e) =>
+              setEditData({ ...editData, title: e.target.value })
+            }
+          />
+
+          <div style={{ marginTop: "10px" }}>
+            <button onClick={saveEditedCard}>Save</button>
+            <button onClick={() => setEditData(null)}>Cancel</button>
+          </div>
+        </div>
+      </div>
+    )}
+
 
       {/* Add Column Modal */}
       {showColumnModal && (

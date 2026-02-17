@@ -145,3 +145,9 @@ body {
 .deleteColumnBtn:hover {
   transform: scale(1.1);
 }
+.errorMsg {
+    color: red;
+    font-size: 13px;
+    margin-top: 0px;
+    text-shadow: 0 0 #ffababa6;
+}
